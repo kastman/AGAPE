@@ -30,7 +30,7 @@ if [ -f $REF_FASTA.ann ]
 then
 	echo "bwa index exists"
 else
-	$BWA/bwa index $REF_FASTA
+	bwa index $REF_FASTA
 fi
 
 cd $non_ref_dir

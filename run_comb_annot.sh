@@ -14,8 +14,8 @@ SCRIPTS=$7
 cd $comb_annot
 rm -rf $comb_annot/ref.*
 ln -s $PROTEIN1 $comb_annot/ref1_protein.fasta
-$BLAST/makeblastdb -in ref1_protein.fasta -dbtype prot -parse_seqids -out ref
 $SCRIPTS/combined_annot.sh $out_name $comb_annot $maker_dir/seq.fasta $out_dir/annot $maker_dir $snap_dir $SCRIPTS SGD 90 $comb_annot # results in $comb_annot/gff/$out_name.genes.gff
+makeblastdb -in ref1_protein.fasta -dbtype prot -parse_seqids -out ref
 
 rm -rf $comb_annot/ref.*
 ln -s $PROTEIN2 $comb_annot/ref_protein.fasta
@@ -25,9 +25,9 @@ ln -s $CFG_DIR/maker_opts.ctl $comb_annot/maker_opts.ctl
 ln -s $CFG_DIR/maker_bopts.ctl $comb_annot/maker_bopts.ctl
 ln -s $CFG_DIR/maker_exe.ctl $comb_annot/maker_exe.ctl
 
-$BLAST/makeblastdb -in ref_protein.fasta -dbtype prot -parse_seqids -out ref
 $SCRIPTS/unannot_regions.sh $maker_dir/seq.fasta $comb_annot/gff/$out_name.genes.gff $comb_annot $SCRIPTS # resutls in $comb_annot/non_orf.fasta
 rm $comb_annot/seq.fasta
+makeblastdb -in ref_protein.fasta -dbtype prot -parse_seqids -out ref
 ln -s $comb_annot/non_orf.fasta $comb_annot/seq.fasta
 $SCRIPTS/maker.sh $comb_annot $snap_dir $SCRIPTS # results in $comb_annot/genes.gff
 less $comb_annot/non_orf.fasta | grep ">" > $comb_annot/head.txt
@@ -47,8 +47,8 @@ rm -rf $comb_annot/non_orf.fasta
 rm -rf $comb_annot/genes.gff
 $SCRIPTS/unannot_regions.sh $maker_dir/seq.fasta $comb_annot/gff/$out_name.genes.gff $comb_annot $SCRIPTS # resutls in $comb_annot/non_orf.fasta
 
-$AUGUSTUS/augustus --gff3=on --species=$AUGUSTUS_REF non_orf.fasta > $comb_annot/genes.gff
-less $comb_annot/genes.gff | sed '/^#/d' | sed '/^$/d' | grep -P "gene|CDS" > $comb_annot/temp.gff
+augustus --gff3=on --species=$AUGUSTUS_REF non_orf.fasta > $comb_annot/genes.gff
+less $comb_annot/genes.gff | sed '/^#/d' | sed '/^$/d' | grep -E "gene|CDS" > $comb_annot/temp.gff
 mv $comb_annot/temp.gff $comb_annot/add2.genes.gff
 
 #$GeneMark  --format=GFF --imod $genemark_mod $comb_annot/non_orf.fasta

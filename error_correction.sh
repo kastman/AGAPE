@@ -27,7 +27,6 @@ fi
 echo "num of param: $#"
 
 . $SCRIPTS/configs.cf
-sga=$SGA/sga
 
 rm -rf $out_dir/$seq_name.pp.ec.fa
 rm -rf "$out_dir/$seq_name"_1.pe.fastq
@@ -41,12 +40,6 @@ fname2=$out_dir/"$seq_name"_2.sra.fastq
 if [ -e "$fname1" ]
 then
 	echo "$fname1 exists; change $fname1 to a different name"
-	exit 1
-fi
-
-if [ ! -e "$SGA/sga" ]
-then
-	echo "$SGA/sga not installed or path not set"
 	exit 1
 fi
 
@@ -96,21 +89,21 @@ elif [ "$phred_option" == 33 ]
 then
 	if [ $mode == 1 ]
 	then
-		$sga preprocess $fname1 > $out_dir/$seq_name.pp.fa
+		sga preprocess $fname1 > $out_dir/$seq_name.pp.fa
 	else
-		$sga preprocess -p 1 $fname1 $fname2 > $out_dir/$seq_name.pp.fa
+		sga preprocess -p 1 $fname1 $fname2 > $out_dir/$seq_name.pp.fa
 	fi
 else
 	if [ $mode == 1 ]
 	then
-		$sga preprocess --phred64 $fname1 > $out_dir/$seq_name.pp.fa
+		sga preprocess --phred64 $fname1 > $out_dir/$seq_name.pp.fa
 	else
-		$sga preprocess -p 1 --phred64 $fname1 $fname2 > $out_dir/$seq_name.pp.fa
+		sga preprocess -p 1 --phred64 $fname1 $fname2 > $out_dir/$seq_name.pp.fa
 	fi
 fi
 
-$sga index -a ropebwt --no-reverse $out_dir/$seq_name.pp.fa
-$sga correct -k $CORRECTION_K --discard --learn $out_dir/$seq_name.pp.fa -o $out_dir/$seq_name.pp.ec.fa
+sga index -a ropebwt --no-reverse $out_dir/$seq_name.pp.fa
+sga correct -k $CORRECTION_K --discard --learn $out_dir/$seq_name.pp.fa -o $out_dir/$seq_name.pp.ec.fa
 #sga index -a ropebwt -t $CPU --no-reverse $out_dir/$seq_name.pp.fa
 #sga correct -k $CORRECTION_K --discard --learn -t $CPU $out_dir/$seq_name.pp.fa -o $out_dir/$seq_name.pp.ec.fa
 

@@ -10,8 +10,6 @@ SCRIPT=`echo $0 | sed -e 's;.*/;;'` # script name from command line; path remove
 
 #fastq_dir=/srv/gs1/projects/cherry/giltae/AGAPE/output/fastq
 
-mode=1 # 1: single end, 2: paired end
-
 if [ $# -ne 4 ] && [ $# -ne 5 ]
 then
   echo "Usage: $SCRIPT out_dir output_name AGAPE_main_path sequence1 [or sequence2 for paired end]"

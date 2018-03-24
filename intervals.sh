@@ -46,7 +46,7 @@ do
 			e=`echo $line | awk '{print $3}'`
 #			echo "$b, $e"
 			b=`expr $b + 1`
-			$BIN/lastz T=2 Y=3400 $ref_dir/chr_seq/$chr_name.fa $temp_dir/cur_scaf[$b..$e] --ambiguous=iupac --format=maf >> $annot_dir/homologs.d/maf/$chr_name.homologs.maf
+			lastz T=2 Y=3400 $ref_dir/chr_seq/$chr_name.fa $temp_dir/cur_scaf[$b..$e] --ambiguous=iupac --format=maf >> $annot_dir/homologs.d/maf/$chr_name.homologs.maf
 			count=0
 			if [ -f $annot_dir/homologs.d/fasta/$chr_name.homologs.fasta ] 
 			then

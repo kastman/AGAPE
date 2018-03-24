@@ -64,7 +64,7 @@ do
 		then
 			$BIN/pull_c $temp_dir/temp.fasta $temp_dir/temp.all.codex > $temp_dir/temp.dna
       cd $blast_db_dir
-      $BLAST/blastx -db ref -query $temp_dir/temp.dna -outfmt "7 sallacc pident evalue stitle" -out $temp_dir/temp.blastx.out
+      blastx -db ref -query $temp_dir/temp.dna -outfmt "7 sallacc pident evalue stitle" -out $temp_dir/temp.blastx.out
       cd $temp_dir
 		  $BIN/update_gff_blastx $temp_dir/temp.all.gff $temp_dir/temp.blastx.out $protein_file_type $cutoff > $temp_dir/temp.all.genes.gff
 			$BIN/rm_redun_gff $temp_dir/temp.all.genes.gff > $temp_dir/temp.final.genes.gff

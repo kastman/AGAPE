@@ -28,7 +28,7 @@ prep.sh $seq_dir/"$name"_2.fastq $out_dir/"$name"_2.fastq
 if [ $qual_encode == 64 ]
 then
 	bwa aln -q 15 -l 35 -k 2 -n 0.04 -o 2 -e 6 -t 1 -I $ref_dir/sacCer3.fa "$seq_dir/$name"_1.fastq > "$out_dir/$name"_1.fastq.sai
- bwa aln -q 15 -l 35 -k 2 -n 0.04 -o 2 -e 6 -t 1 -I $ref_dir/sacCer3.fa "$seq_dir/$name"_2.fastq > "$out_dir/$name"_2.fastq.sai
+  bwa aln -q 15 -l 35 -k 2 -n 0.04 -o 2 -e 6 -t 1 -I $ref_dir/sacCer3.fa "$seq_dir/$name"_2.fastq > "$out_dir/$name"_2.fastq.sai
 else
 	bwa aln -q 15 -l 35 -k 2 -n 0.04 -o 2 -e 6 -t 1 $ref_dir/sacCer3.fa "$seq_dir/$name"_1.fastq > "$out_dir/$name"_1.fastq.sai
 	bwa aln -q 15 -l 35 -k 2 -n 0.04 -o 2 -e 6 -t 1 $ref_dir/sacCer3.fa "$seq_dir/$name"_2.fastq > "$out_dir/$name"_2.fastq.sai
