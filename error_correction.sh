@@ -15,7 +15,7 @@ then
 	mode=1
 	SCRIPTS=$5
 elif [ $# == 6 ]
-then 
+then
 	mode=2
 	seq2=$5
 	SCRIPTS=$6
@@ -51,7 +51,7 @@ then
 	then
 		echo "$seq1 does not exist"
 		exit 1
-	else		
+	else
 		ln -s $seq1 $fname1
 	fi
 
@@ -60,7 +60,7 @@ then
 		if [ ! -f $seq2 ]
 		then
 			echo "$seq2 does not exist"
-		else 
+		else
 			ln -s $seq2 $fname2
 		fi
 	fi
@@ -107,7 +107,7 @@ elif [ $version == 1 ]
 then
 	$BIN/separate_fq $out_dir/$seq_name.pp.ec.fa $out_dir/"$seq_name"_1.pe.fastq $out_dir/"$seq_name"_2.pe.fastq $out_dir/"$seq_name"_1.se.fastq $out_dir/"$seq_name"_2.se.fastq VERSION1
 else
-	$BIN/separate_fq $out_dir/$seq_name.pp.ec.fa $out_dir/"$seq_name"_1.pe.fastq $out_dir/"$seq_name"_2.pe.fastq $out_dir/"$seq_name"_1.se.fastq $out_dir/"$seq_name"_2.se.fastq 
+	$BIN/separate_fq $out_dir/$seq_name.pp.ec.fa $out_dir/"$seq_name"_1.pe.fastq $out_dir/"$seq_name"_2.pe.fastq $out_dir/"$seq_name"_1.se.fastq $out_dir/"$seq_name"_2.se.fastq
 fi
 
 rm -rf $fname1

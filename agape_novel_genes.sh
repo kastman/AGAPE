@@ -8,7 +8,7 @@ set -euo pipefail
 
 if [ $# -ne 4 ] && [ $# -ne 5 ]
 then
-  echo "Usage: agape_novel_genes.sh output_directory output_name AGAPE_main_path seq1 (or seq2)" 
+  echo "Usage: agape_novel_genes.sh output_directory output_name AGAPE_main_path seq1 (or seq2)"
   exit 1
 fi
 

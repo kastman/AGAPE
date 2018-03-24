@@ -10,7 +10,7 @@ fi
 
 snap_files=$1
 SCRIPTS=$2
-. $SCRIPTS/configs.cf 
+. $SCRIPTS/configs.cf
 
 cd $snap_files
 cat $REF_DIR/$REF_NAME.size | while read line

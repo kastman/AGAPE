@@ -4,9 +4,9 @@ cur_dir=$1
 snap_dir=$2
 SCRIPTS=$3
 
-. $SCRIPTS/configs.cf 
+. $SCRIPTS/configs.cf
 
-cd $cur_dir 
+cd $cur_dir
 rm -rf $cur_dir/seq.*.output
 rm -rf $cur_dir/maker*
 rm -rf $cur_dir/genome.hmm

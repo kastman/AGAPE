@@ -3,7 +3,7 @@ set -euo pipefail
 
 if [ $# -ne 4 ] && [ $# -ne 5 ]
 then
-	echo "Usage: $SCRIPT out_dir output_name AGAPE_main_path sequence1 [or sequence2 for paired end]"	
+	echo "Usage: $SCRIPT out_dir output_name AGAPE_main_path sequence1 [or sequence2 for paired end]"
 elif [ $# -eq 5 ]
 then
 	seq2=$5

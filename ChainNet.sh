@@ -27,7 +27,7 @@ then
 	faSize $seq_file -detailed > $main_dir/$seq_name.size
 fi
 
-for chr_seq in "$ref_dir"/*".fa" 
+for chr_seq in "$ref_dir"/*".fa"
 do
 	chr_name=`basename $chr_seq | cut -d '.' -f1`
 	echo $chr_name $chr_seq

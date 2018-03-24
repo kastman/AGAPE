@@ -30,7 +30,7 @@ do
 
 	if [ ! -e $chain_dir/$chr_name.chain ]
 	then
-		echo "$chain_dir/$chr_name.chain not exist or moved to other place"	
+		echo "$chain_dir/$chr_name.chain not exist or moved to other place"
 	fi
 	$BIN/homologs $chain_dir/$chr_name.chain $ref_dir/intervals.d/$chr_name.interval > $annot_dir/homologs.d/intervals/$chr_name.homologs.intervals
 
@@ -48,17 +48,17 @@ do
 			b=`expr $b + 1`
 			lastz T=2 Y=3400 $ref_dir/chr_seq/$chr_name.fa $temp_dir/cur_scaf[$b..$e] --ambiguous=iupac --format=maf >> $annot_dir/homologs.d/maf/$chr_name.homologs.maf
 			count=0
-			if [ -f $annot_dir/homologs.d/fasta/$chr_name.homologs.fasta ] 
+			if [ -f $annot_dir/homologs.d/fasta/$chr_name.homologs.fasta ]
 			then
 				count=`less "$annot_dir"/homologs.d/fasta/"$chr_name".homologs.fasta | grep -w "$scaf_name" | wc -l`
 			fi
 
 			if [ $count -eq 0 ]
-			then	
+			then
 				echo "> $scaf_name" >> $annot_dir/homologs.d/fasta/$chr_name.homologs.fasta
-				$BIN/dna $temp_dir/cur_scaf | tail -n +2 >> $annot_dir/homologs.d/fasta/$chr_name.homologs.fasta	
+				$BIN/dna $temp_dir/cur_scaf | tail -n +2 >> $annot_dir/homologs.d/fasta/$chr_name.homologs.fasta
 			fi
 
 		fi
 	done < $annot_dir/homologs.d/intervals/$chr_name.homologs.intervals
-done < $annot_dir/$ref_name.size 
+done < $annot_dir/$ref_name.size

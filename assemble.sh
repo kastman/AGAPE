@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPTS=$4
-. $SCRIPTS/configs.cf 
+. $SCRIPTS/configs.cf
 
 cur_dir=$1
 seq_name=$2

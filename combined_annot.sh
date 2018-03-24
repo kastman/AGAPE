@@ -9,7 +9,7 @@ annot_maker=$5
 snap_dir=$6
 SCRIPTS=$7
 protein_file_type=$8 # SGD or ENSEMBL
-cutoff=$9 
+cutoff=$9
 blast_db_dir=${10}
 
 . $SCRIPTS/configs.cf
@@ -33,11 +33,11 @@ rm -rf $out_dir/$strain_name.all.genes.gff
 echo "#" > $out_dir/temp.codex
 
 less $fasta_file | grep ">" | sed 's/>//g' > $out_dir/scf.list
-while read scf_line 
+while read scf_line
 do
 	scf_name=`echo $scf_line | awk '{print $1}'`
 	scf_len=`echo $scf_line | awk '{print $2}'`
-	
+
 	if [ $scf_len -gt 300 ]
 	then
 		rm -rf $temp_dir/temp*

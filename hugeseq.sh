@@ -12,11 +12,11 @@ then
 elif [ $# == 4 ]
 then
 	qual_encode=$4
-else	
+else
   qual_encode=32
 fi
 
-if [ $qual_encode -ne 32 ] && [ $qual_encode -ne 64 ] 
+if [ $qual_encode -ne 32 ] && [ $qual_encode -ne 64 ]
 then
   echo "Usage:  $SCRIPT strain_name seq_dir output_dir [32 or 64]"
   exit 1
@@ -41,12 +41,12 @@ sam_index.sh $out_dir/$name.sorted.bam
 sam_rm.sh $out_dir/$name.bam
 
 while read line
-do 
+do
 	chr=`echo $line | awk '{print $1}'`
 	bin_sam.sh $chr $out_dir/$chr.bam $out_dir/$name.sorted.bam
 	sam_index.sh $out_dir/$chr.bam
 	clean_nodup.sh $out_dir/$chr.bam $out_dir/$chr.nodup.bam
-	sam_index.sh $out_dir/$chr.nodup.bam 
+	sam_index.sh $out_dir/$chr.nodup.bam
 	rm -rf $out_dir/$chr.bam $out_dir/$chr.bam.bai
 	clean_realn.sh $out_dir/$chr.nodup.bam $out_dir/$chr.realn.bam
 	sam_index.sh $out_dir/$chr.realn.bam
@@ -61,7 +61,7 @@ snp_vcfs=''
 indel_vcfs=''
 pileup_vcfs=''
 cat $ref_dir/sacCer3.fa.fai | ( while read line
-do 
+do
 	chr=`echo $line | awk '{print $1}'`
 	var_snp.sh $out_dir/$chr.snp.gatk.vcf $out_dir/$chr.recal.bam
 	var_filter.sh $out_dir/$chr.snp.gatk.vcf

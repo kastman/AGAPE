@@ -7,8 +7,8 @@ seq_name=$2
 SCRIPTS=$3
 . $SCRIPTS/configs.cf
 
-gff=$4 # annotation in GFF 
-interval_file=$5 # non-reference intervals 
+gff=$4 # annotation in GFF
+interval_file=$5 # non-reference intervals
 fasta=$6 # assembly in FASTA
 
 if [ -f $interval_file ]
