@@ -16,8 +16,8 @@ cd $snap_files
 cat $REF_DIR/$REF_NAME.size | while read line
 do
 	chr=`echo $line | awk '{print $1}'`
-	less $REF_GFF | grep -w $chr | grep -e gene -e CDS > $snap_files/$chr.gff	
-	$SNAP/gff2zff.pl -sp=$chr $snap_files/$chr.gff
+	less $REF_GFF | grep -w $chr | grep -e gene -e CDS > $snap_files/$chr.gff
+	$BIN/gff2zff.pl $snap_files/$chr.gff > $snap_files/$chr.ann
 	cat $snap_files/$chr.ann >> $snap_files/$REF_NAME.ann #recommend to do this manually
 #	rm $snap_files/$chr.gff $snap_files/$chr.ann
 done

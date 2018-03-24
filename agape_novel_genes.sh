@@ -20,7 +20,7 @@ seq1=$4
 . $SCRIPTS/configs.cf
 
 fasta=$out_dir/$strain_name.scf.fasta
-gff=$out_dir/comb_annot/$strain_name.gff
+gff=$out_dir/comb_annot/gff/$strain_name.gff
 
 non_ref_dir=$out_dir/non_ref
 rm -rf $non_ref_dir
