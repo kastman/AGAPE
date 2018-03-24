@@ -1,4 +1,5 @@
 #!/bin/sh
+set -euo pipefail
 
 # --- input file in FASTQ with the full path ---
 # --- output file is written as $out_dir/$out_name.scf.fasta ---

@@ -1,4 +1,5 @@
-#!/bin/sh -l
+#!/bin/sh
+set -euo pipefail
 
 seq_name=$1
 annot_dir=$2

@@ -1,4 +1,5 @@
 #!/bin/sh
+set -euo pipefail
 
 if [ $# -ne 4 ] && [ $# -ne 5 ]
 then

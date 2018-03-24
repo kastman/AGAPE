@@ -1,4 +1,5 @@
-#!/bin/sh -l
+#!/bin/sh
+set -euo pipefail
 
 strain_name=$1
 out_dir=$2

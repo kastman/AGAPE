@@ -1,5 +1,5 @@
-#!/bin/sh -l
-
+#!/bin/sh
+set -euo pipefail
 
 CORRECTION_K=41
 out_dir=$1

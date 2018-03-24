@@ -1,4 +1,5 @@
 #!/bin/sh
+set -euo pipefail
 
 # --- input file in $out_dir/$out_name.scf.fasta ---
 

@@ -1,8 +1,9 @@
-#!/bin/sh -l
+#!/bin/sh
+set -euo pipefail
 
 chainParams="-minScore=3000 -linearGap=loose"
 
-axtChainNet=$1
+# axtChainNet=$1  # Unused
 seq_name=$2
 out_dir=$3
 ref_dir=$4

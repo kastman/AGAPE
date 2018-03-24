@@ -1,4 +1,5 @@
 #!/bin/sh
+set -euo pipefail
 
 comb_annot=$1
 BLAST=$2

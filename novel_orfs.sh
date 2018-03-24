@@ -1,4 +1,5 @@
 #!/bin/sh
+set -euo pipefail
 
 out_dir=$1
 seq_name=$2

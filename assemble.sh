@@ -1,4 +1,5 @@
-#!/bin/sh -l
+#!/bin/sh
+set -euo pipefail
 
 SCRIPTS=$4
 . $SCRIPTS/configs.cf 

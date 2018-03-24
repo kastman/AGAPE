@@ -1,5 +1,5 @@
 #!/bin/sh
-set -e    # exit on error (except commands bracketed with "set +e ... set -e")
+set -euo pipefail    # exit on error (except commands bracketed with "set +e ... set -e")
 #
 # Script to use annotations in a reference species to estimate those for other
 # species, via sequence alignments and AUGUSTUS.
@@ -71,7 +71,7 @@ then
 	echo "#### Resetting $TMP1 for $chr_name"
 	rm -f $TMP1/*    # kluge for weird bug in "rm -rf" (e.g. with AFS on Macs)
 	rm -rf $TMP1; mkdir -p $TMP1
-	$BIN/lastz $out_dir/homologs.d/fasta/$chr_name.homologs.fasta[multi] $ref_dir/$ref_name.temp/$chr_name.temp_gene T=2 Y=3400 --ambiguous=iupac --format=maf > $TMP1/$chr_name.maf
+	lastz $out_dir/homologs.d/fasta/$chr_name.homologs.fasta[multi] $ref_dir/$ref_name.temp/$chr_name.temp_gene T=2 Y=3400 --ambiguous=iupac --format=maf > $TMP1/$chr_name.maf
 	$BIN/extract_gene_cluster_whole $TMP1/$chr_name.maf > $TMP1/$chr_name.loc
 	$BIN/gene_boundaries $TMP1/$chr_name.loc 1 > $TMP1/$chr_name.loc_bound
 
@@ -88,9 +88,10 @@ then
 		scf_name=`echo $line | cut -d " " -f1`
 		b=`echo $line | cut -d: -f2 | cut -d " " -f2`
 		e=`echo $line | cut -d: -f2 | cut -d " " -f3`
-		#echo $scf_name $b $e
+		# echo $scf_name $b $e
+		# sleep 5
 		$BIN/pull_fasta_scaf $out_dir/homologs.d/fasta/$chr_name.homologs.fasta $scf_name > $TMP1/cur_seq
-		$BIN/lastz "$TMP1/cur_seq[$b,$e]" $ref_dir/$ref_name.temp/$chr_name.temp_gene T=2 Y=3400 --ambiguous=iupac --format=maf > $TMP2/temp_maf
+		lastz "$TMP1/cur_seq[$b,$e]" $ref_dir/$ref_name.temp/$chr_name.temp_gene T=2 Y=3400 --ambiguous=iupac --format=maf > $TMP2/temp_maf
 		$BIN/find_match $TMP2/temp_maf > $TMP2/m_genes
 		#cat $TMP2/m_genes
 
@@ -111,23 +112,23 @@ then
 				len=`expr $len - $num_lines`
 				#echo "len = $len"
 			fi
-			
+
 			num_seq_lines=`cat $TMP1/cur_seq | wc -l`
 			num_seq_lines=`expr $num_seq_lines - 1`
 			num_nu=`tail -$num_seq_lines $TMP1/cur_seq | wc -c`
 			num_nu=`expr $num_nu - $num_seq_lines`
-			
+
 			diff=`expr $e - $b`
 
-			if [ $b -lt 31 ] 
+			if [ $b -lt 31 ]
 			then
 				beg=1
 			else
 				beg=`expr $b - 30`
 			fi
- 
+
 			end=`expr $e + 30`
-			if [ $end -gt $num_nu ] 
+			if [ $end -gt $num_nu ]
 			then
 				end=$num_nu
 			fi
@@ -147,13 +148,13 @@ then
 			if [ "$direction" = "+" ] || [ "$direction" = "-" ]
 			then
 #				echo $diff $len
-				$AUGUSTUS/augustus --species=$AUGUSTUS_REF $TMP2/p_seq > $TMP2/gene_loc
+				augustus --species=$AUGUSTUS_REF $TMP2/p_seq > $TMP2/gene_loc
 #				echo $beg $end $b $e $cur_name $direction $num_nu
 				$BIN/gff2sim4 $TMP2/gene_loc $beg $end $b $e $cur_name $direction $num_nu $scf_name > $TMP2/temp_loc
 				$BIN/reverse_exon_order $TMP2/temp_loc > $TMP2/final_loc_file
-				
+
 				rm -rf $TMP2/gene_loc
-				
+
 				tf=f
 				num_lines=`cat $TMP2/final_loc_file | wc -l`
 				if [ "$num_lines" -ne 0 ]
@@ -204,7 +205,7 @@ then
 				total_num_genes=`expr $total_num_genes + 1`
 				is_done=t
 			fi
-			#echo "name direction: $cur_name $direction $tf"
+			# echo "name direction: $cur_name $direction $tf"
 		done < $TMP2/m_genes
 	done
 
@@ -214,6 +215,7 @@ then
 		for scf_exons in "$TMP1"/*."temp.exons"
 		do
 			$BIN/sort_genes $scf_exons >> $out_dir/codex/$chr_name.codex
+			# cat $scf_exons >> $out_dir/codex/$chr_name.codex
 			num_scf_exon_files=`expr $num_scf_exon_files + 1`
 		done
 	fi

@@ -1,4 +1,5 @@
-#!/bin/sh -l
+#!/bin/sh
+set -euo pipefail
 
 fasta=$1
 gff_file=$2

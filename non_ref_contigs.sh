@@ -1,4 +1,5 @@
 #!/bin/sh
+set -euo pipefail
 
 ratio=0.5
 
