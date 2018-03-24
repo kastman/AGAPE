@@ -51,7 +51,7 @@ do
 			$BIN/pull_c $temp_dir/scf.fasta $temp_dir/genes.codex > $temp_dir/genes.dna
 			#BIN/merge_gff $temp_dir/genes.codex $out_dir/temp.gff > $temp_dir/temp.gff
 			$BIN/dna2aa -v $temp_dir/genes.dna 1 > $temp_dir/genes.aa
-			$BIN/check_aa $temp_dir/temp.genes.gff $temp_dir/genes.aa LAST_COLUMN | grep "gene\|CDS" > $temp_dir/valid.genes.gff
+			$BIN/check_aa $temp_dir/temp.genes.gff $temp_dir/genes.aa LAST_COLUMN | grep -i -E "gene|CDS" > $temp_dir/valid.genes.gff
 		fi
 		num=`less $temp_dir/valid.genes.gff | grep -w "gene" | wc -l`
 	else

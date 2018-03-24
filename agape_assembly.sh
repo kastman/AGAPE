@@ -4,7 +4,7 @@ set -euo pipefail
 # --- input file in FASTQ with the full path ---
 # --- output file is written as $out_dir/$out_name.scf.fasta ---
 
-SCRIPTS=/srv/gs1/projects/cherry/giltae/AGAPE # AGAPE main directory path
+SCRIPTS=$(cd "$(dirname "$0")"; pwd) # AGAPE main directory path
 phred_type=33 # quality score type; change this to 64 for Illumina 1.3 and 1.5
 SCRIPT=`echo $0 | sed -e 's;.*/;;'` # script name from command line; path removed for msgs
 

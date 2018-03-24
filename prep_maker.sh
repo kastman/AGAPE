@@ -22,11 +22,11 @@ do
 #	rm $snap_files/$chr.gff $snap_files/$chr.ann
 done
 
-$SNAP/fathom $snap_files/$REF_NAME.ann $snap_files/$REF_NAME.dna -gene-stats
-$SNAP/fathom $snap_files/$REF_NAME.ann $snap_files/$REF_NAME.dna -validate
-$SNAP/fathom $snap_files/$REF_NAME.ann $snap_files/$REF_NAME.dna -categorize 1000
-$SNAP/fathom $snap_files/uni.ann $snap_files/uni.dna -export 1000 -plus
+fathom $snap_files/$REF_NAME.ann $snap_files/$REF_NAME.dna -gene-stats
+fathom $snap_files/$REF_NAME.ann $snap_files/$REF_NAME.dna -validate
+fathom $snap_files/$REF_NAME.ann $snap_files/$REF_NAME.dna -categorize 1000
+fathom $snap_files/uni.ann $snap_files/uni.dna -export 1000 -plus
 
 mkdir -p params
 cd params
-$SNAP/forge ../export.ann ../export.dna
+forge ../export.ann ../export.dna
