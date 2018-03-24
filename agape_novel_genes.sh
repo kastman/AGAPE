@@ -23,8 +23,8 @@ fasta=$out_dir/$strain_name.scf.fasta
 gff=$out_dir/comb_annot/gff/$strain_name.gff
 
 non_ref_dir=$out_dir/non_ref
-rm -rf $non_ref_dir
-mkdir -p $non_ref_dir
+# rm -rf $non_ref_dir
+# mkdir -p $non_ref_dir
 
 if [ -f $REF_FASTA.ann ]
 then

@@ -10,30 +10,32 @@ SCRIPTS=$3
 . $SCRIPTS/configs.cf
 
 fasta=$4 # contigs of unmapped reads
-assem_fasta=$5 # whole genome sequence assembly 
+assem_fasta=$5 # whole genome sequence assembly
 
-rm -rf $out_dir/$seq_name.inserted.assembly.intervals
+if [ ! -e $out_dir/$seq_name.inserted.assembly.intervals ]; then
+  for scf_name in `less "$assem_fasta" | grep ">" | awk '{print $1}' | cut -d '>' -f2`
+  do
+    $BIN/pull_fasta_scaf $assem_fasta $scf_name > $out_dir/temp.fasta
+    len=`$BIN/seq_len $out_dir/temp.fasta`
+    lastz T=2 Y=3400 $out_dir/temp.fasta $REF_FASTA --ambiguous=iupac --format=maf > $out_dir/temp.maf
+    $BIN/find_inserted_intervals $out_dir/temp.maf $scf_name $len >> $out_dir/$seq_name.inserted.assembly.intervals
+    rm -rf $out_dir/temp.fasta
+    rm -rf $out_dir/temp.maf
+  done
+fi
 
-for scf_name in `less "$assem_fasta" | grep ">" | awk '{print $1}' | cut -d '>' -f2`
-do
-  $BIN/pull_fasta_scaf $assem_fasta $scf_name > $out_dir/temp.fasta
-  len=`$BIN/seq_len $out_dir/temp.fasta`
-  lastz T=2 Y=3400 $out_dir/temp.fasta $REF_FASTA --ambiguous=iupac --format=maf > $out_dir/temp.maf
-  $BIN/find_inserted_intervals $out_dir/temp.maf $scf_name $len >> $out_dir/$seq_name.inserted.assembly.intervals
-  rm -rf $out_dir/temp.fasta
-  rm -rf $out_dir/temp.maf
-done
+if [ ! -e $out_dir/$seq_name.inserted.intervals ]; then
+  for scf_name in `less "$fasta" | grep ">" | awk '{print $1}' | cut -d '>' -f2`
+  do
+   $BIN/pull_fasta_scaf $fasta $scf_name > $out_dir/temp.fasta
+   len=`$BIN/seq_len $out_dir/temp.fasta`
+   lastz T=2 Y=3400 $out_dir/temp.fasta $REF_FASTA --ambiguous=iupac --format=maf > $out_dir/temp.maf
+   $BIN/find_inserted_intervals $out_dir/temp.maf $scf_name $len >> $out_dir/$seq_name.inserted.intervals
+   rm -rf $out_dir/temp.maf
+  done
+fi
 
-rm -rf $out_dir/$seq_name.inserted.intervals
-
-for scf_name in `less "$fasta" | grep ">" | awk '{print $1}' | cut -d '>' -f2`
-do
- $BIN/pull_fasta_scaf $fasta $scf_name > $out_dir/temp.fasta
- len=`$BIN/seq_len $out_dir/temp.fasta`
- $BIN/lastz T=2 Y=3400 $out_dir/temp.fasta $REF_FASTA --ambiguous=iupac --format=maf > $out_dir/temp.maf
- $BIN/find_inserted_intervals $out_dir/temp.maf $scf_name $len >> $out_dir/$seq_name.inserted.intervals
- rm -rf $out_dir/temp.maf
-done
+set -x
 
 rm -rf $out_dir/temp.*
 rm -rf $out_dir/$seq_name.inserted.original.intervals
@@ -44,14 +46,15 @@ do
  scf_name=`echo $line | awk '{print $1}'`
  b=`echo $line | awk '{print $2}'`
  e=`echo $line | awk '{print $3}'`
-
- $BIN/pull_fasta_scaf $fasta $scf_name > $out_dir/temp.seq.fasta
- $BIN/dna $b,$e $out_dir/temp.seq.fasta > $out_dir/temp.cur.seq.fasta
- $BIN/lastz T=2 Y=3400 $assem_fasta[multi] $out_dir/temp.cur.seq.fasta --ambiguous=iupac --format=maf > $out_dir/temp.seq.maf
- $BIN/scf_lift_over $out_dir/temp.seq.maf >> $out_dir/$seq_name.inserted.original.intervals
- rm -rf $out_dir/temp.seq.maf
- rm -rf $out_dir/temp.seq.fasta
- rm -rf $out_dir/temp.cur.seq.fasta
+ if [ $b -gt 0 ]; then  # Temporary fix for large negative beginning values
+   $BIN/pull_fasta_scaf $fasta $scf_name > $out_dir/temp.seq.fasta
+   $BIN/dna $b,$e $out_dir/temp.seq.fasta > $out_dir/temp.cur.seq.fasta
+   lastz T=2 Y=3400 $assem_fasta[multi] $out_dir/temp.cur.seq.fasta --ambiguous=iupac --format=maf > $out_dir/temp.seq.maf
+   $BIN/scf_lift_over $out_dir/temp.seq.maf >> $out_dir/$seq_name.inserted.original.intervals
+   rm -rf $out_dir/temp.seq.maf
+   rm -rf $out_dir/temp.seq.fasta
+   rm -rf $out_dir/temp.cur.seq.fasta
+ fi
 done < $out_dir/$seq_name.inserted.intervals
 
 if [ -f $out_dir/$seq_name.inserted.original.intervals ]
@@ -78,4 +81,3 @@ then
     fi
   fi
 fi
-

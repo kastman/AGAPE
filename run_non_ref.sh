@@ -24,17 +24,23 @@ gff=$5
 seq1=$6
 
 cd $out_dir
-if [ $# == 7 ]
-then
-	seq2=$7
-	$SCRIPTS/non_ref.sh $out_dir $seq_name $SCRIPTS $seq1 $seq2
-	$SCRIPTS/assemble.sh $out_dir $seq_name 4 $SCRIPTS  
-else
-	$SCRIPTS/non_ref.sh $out_dir $seq_name $SCRIPTS $seq1
-	$SCRIPTS/assemble.sh $out_dir $seq_name 3 $SCRIPTS
+if [ ! -e $out_dir/$seq_name.scf.fasta ]; then
+  if [ $# == 7 ]
+  then
+    seq2=$7
+    $SCRIPTS/non_ref.sh $out_dir $seq_name $SCRIPTS $seq1 $seq2
+    $SCRIPTS/assemble.sh $out_dir $seq_name 4 $SCRIPTS
+  else
+    $SCRIPTS/non_ref.sh $out_dir $seq_name $SCRIPTS $seq1
+    $SCRIPTS/assemble.sh $out_dir $seq_name 3 $SCRIPTS
+  fi
 fi
 
 ## assembly results are in $out_dir/$seq_name.scf.fasta
 
-$SCRIPTS/non_ref_contigs.sh $out_dir $seq_name $SCRIPTS $out_dir/$seq_name.scf.fasta $assem_fasta # resutls in $out_dir/$seq_name.final.inserted.assembly.intervals
-$SCRIPTS/novel_orfs.sh $out_dir $seq_name $SCRIPTS $gff $out_dir/$seq_name.final.inserted.original.intervals $assem_fasta # results in $out_dir/$seq_name.novel.orfs.gff
+if [ ! -e $out_dir/$seq_name.final.inserted.original.intervals ]; then
+  $SCRIPTS/non_ref_contigs.sh $out_dir $seq_name $SCRIPTS $out_dir/$seq_name.scf.fasta $assem_fasta # results in $seq_name.final.inserted.original.intervals
+fi
+if [ ! -e $out_dir/$seq_name.novel.orfs.gff ]; then
+  $SCRIPTS/novel_orfs.sh $out_dir $seq_name $SCRIPTS $gff $out_dir/$seq_name.final.inserted.original.intervals $assem_fasta # results in $out_dir/$seq_name.novel.orfs.gff
+fi

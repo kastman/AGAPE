@@ -42,6 +42,7 @@ then
           count=`expr $count + 1`
         done < $out_dir/temp.gff
 #       less $out_dir/$seq_name.novel.orfs.fasta >> $novel_orf_dir/novel.orfs.fasta
+        rm $out_dir/temp.gff $out_dir/temp.fasta
       fi
     fi
   fi
