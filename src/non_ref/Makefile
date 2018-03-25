@@ -1,8 +1,7 @@
 include ./Flags.mk
 DEST = ../../bin
 
-PROGS : filter_blast homologous_orfs find_homologous_orfs mask_out_unex_match common_orf_intervals common_scf_intervals merge_scf_intervals scf_lift_over cal_avg_pid 
-#find_inserted_intervals 
+PROGS : filter_blast homologous_orfs find_homologous_orfs mask_out_unex_match common_orf_intervals common_scf_intervals merge_scf_intervals scf_lift_over cal_avg_pid find_inserted_intervals 
 
 all : $(PROGS)
 
