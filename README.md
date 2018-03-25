@@ -4,7 +4,8 @@ AGAPE
 
 AGAPE (Automated Genome Analysis PipelinE) for yeast pan-genome analysis is designed to automate the process of pan-genome analysis and encompasses assembly, annotation, and variation-calling steps. It also includes programs for integrative analysis of novel genes.
 
--- INSTALLATION --
+INSTALLATION
+-------------
 
 The release at github.com/kastman/agape is designed to be installed in conjunction with `conda`.
 This allows for the pipelines to be installed a run on machines outside the original SGD environment.
@@ -16,7 +17,7 @@ To install, cd to the AGAPE directory in terminal and run:
     conda create -n agape -f environment.yaml
     source activate agape
 
-Additionally, you must download the reference sequences for all fungi from the SGD Publication archive and extract them to the standard locations specified by the AGAPE config file:
+Additionally, you should download the reference sequences for all fungi from the SGD Publication archive and extract them to the standard locations specified by the AGAPE config file:
 
     # Download Reference Sequences {yeast,fungi,te}_{est,protein}.fasta
     wget https://downloads.yeastgenome.org/published_datasets/Song_2015_PMID_25781462/AGAPE_cfg_files.tar.gz
@@ -30,7 +31,8 @@ Additionally, you must download the reference sequences for all fungi from the S
     mv yeast_reference_AGAPE_format/* reference
     rm -r yeast_reference_AGAPE_format yeast_reference_AGAPE_format.tar.gz
 
--- USAGE --
+USAGE
+------
 
 Read "README.txt" file in the package
 
