@@ -1,6 +1,5 @@
 name: agape2
 channels:
-- local
 - conda-forge
 - defaults
 - r
@@ -221,7 +220,7 @@ dependencies:
 - libwebp=0.5.2=7
 - libxml2=2.9.7=0
 - libxslt=1.1.32=0
-- llvmdev=5.0.0=default_0
+- llvmdev=5.0.0=default_1
 - lp_solve=5.5.2.5=0
 - make=4.2.1=0
 - mccabe=0.6.1=py27_0
@@ -260,5 +259,5 @@ dependencies:
 - mkl=2017.0.4=h1fae6ae_0
 - numpy=1.13.1=py27_0
 - pysam=0.6=py27_0
-- trnascan-se=1.3.1=pl522_3
+- trnascan-se=1.3.1=pl5.22.0_3
 prefix: /Users/kastman/miniconda/envs/agape2

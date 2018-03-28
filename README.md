@@ -14,7 +14,7 @@ This is less than ideal, but is the a balance between clarity and least impact.
 
 To install, cd to the AGAPE directory in terminal and run:
 
-    conda create -n agape -f environment.yaml
+    conda env create -n agape -f environment.yaml
     source activate agape
 
 Additionally, you should download the reference sequences for all fungi from the SGD Publication archive and extract them to the standard locations specified by the AGAPE config file:
