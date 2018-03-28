@@ -2,3 +2,4 @@ cfg_files/*.fasta
 *.o
 *.dSYM
 programs
+.DS_Store
