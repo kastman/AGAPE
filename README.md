@@ -31,10 +31,29 @@ Additionally, you should download the reference sequences for all fungi from the
     mv yeast_reference_AGAPE_format/* reference
     rm -r yeast_reference_AGAPE_format yeast_reference_AGAPE_format.tar.gz
 
+Finally, SGA includes some extra scripts that are not installed via conda.
+To use them, you need to download the SGA release manually.
+These commands download the version of SGA in the environment.yaml, but can be updated.
+
+    mkdir programs; cd programs
+    wget https://github.com/jts/sga/archive/v0.10.15.tar.gz
+    tar -xzf v0.10.15.tar.gz && rm v0.10.15.tar.gz
+
+Then edit configs.cf to set:
+
+    SGA_src=$AGAPE_DIR/programs/sga-0.10.15/src/bin/
+
 USAGE
 ------
 
-Read "README.txt" file in the package
+    # Setup Environment Variables
+    AGAPE_DIR=/Users/kastman/Desktop/AGAPE
+    PROJDIR=/Users/kastman/Desktop/SourdoughYeasts/
+    GENOMEDIR=$PROJDIR/Genomes
+    SAMP=4_Y1
+
+    # Assembly
+    $AGAPE_DIR/agape_assembly.sh $PROJDIR/AGAPE_out $SAMP "$AGAPE_DIR" $GENOMEDIR/${SAMP}*.R1.fastq $GENOMEDIR/${SAMP}*.R2.fastq
 
 Reference
 =========

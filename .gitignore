@@ -1,3 +1,4 @@
 cfg_files/*.fasta
 *.o
 *.dSYM
+programs
