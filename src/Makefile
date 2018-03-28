@@ -7,7 +7,7 @@
 # locations, and then run "make install".
 #
 INSTALL = install
-TARGETS = build_lastz build_homologs build_non_ref build_utils
+TARGETS = build_homologs build_non_ref build_utils
 
 build : clean bindir $(TARGETS)
 	@echo '=== Build complete ==='
@@ -15,11 +15,6 @@ build : clean bindir $(TARGETS)
 bindir :
 	@echo ---$@---
 	mkdir -p bin
-
-build_lastz :
-	@echo ---$@---
-	cd lastz/src; make lastz
-	cp lastz/src/lastz ../bin/lastz
 
 build_homologs :
 	@echo ---$@---
@@ -35,5 +30,4 @@ build_non_ref :
 
 clean :
 	@echo ---$@---
-	cd lastz/src; make clean
 	rm -rf bin
