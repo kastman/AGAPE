@@ -50,7 +50,9 @@ do
 			count=0
 			if [ -f $annot_dir/homologs.d/fasta/$chr_name.homologs.fasta ]
 			then
+				set +eo pipefail
 				count=`less "$annot_dir"/homologs.d/fasta/"$chr_name".homologs.fasta | grep -w "$scaf_name" | wc -l`
+				set -eo pipefail
 			fi
 
 			if [ $count -eq 0 ]
