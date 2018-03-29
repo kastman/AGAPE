@@ -36,12 +36,17 @@ To use them, you need to download the SGA release manually.
 These commands download the version of SGA in the environment.yaml, but can be updated.
 
     mkdir programs; cd programs
-    wget https://github.com/jts/sga/archive/v0.10.15.tar.gz
-    tar -xzf v0.10.15.tar.gz && rm v0.10.15.tar.gz
+    # # n.b. v0.10.15 has been half-updated for samtools 1, which
+    # # means that it's unusable. Use version 0.10.14 or lower
+    # wget https://github.com/jts/sga/archive/v0.10.15.tar.gz
+    # tar -xzf v0.10.15.tar.gz && rm v0.10.15.tar.gz
+
+    wget https://github.com/jts/sga/archive/v0.10.14.tar.gz
+    tar -xzf v0.10.14.tar.gz && rm v0.10.14.tar.gz
 
 Then edit configs.cf to set:
 
-    SGA_src=$AGAPE_DIR/programs/sga-0.10.15/src/bin/
+    SGA_src=$AGAPE_DIR/programs/sga-0.10.14/src/bin/
 
 USAGE
 ------
@@ -53,7 +58,10 @@ USAGE
     SAMP=4_Y1
 
     # Assembly
-    $AGAPE_DIR/agape_assembly.sh $PROJDIR/AGAPE_out $SAMP "$AGAPE_DIR" $GENOMEDIR/${SAMP}*.R1.fastq $GENOMEDIR/${SAMP}*.R2.fastq
+    $AGAPE_DIR/agape_assembly.sh $PROJDIR/AGAPE_out/$SAMP $SAMP "$AGAPE_DIR" $GENOMEDIR/${SAMP}*.R1.fastq $GENOMEDIR/${SAMP}*.R2.fastq
+
+    # Annotation
+    $AGAPE_DIR/agape_annot.sh  $PROJDIR/AGAPE_out/$SAMP $SAMP $PROJDIR/AGAPE_out/$SAMP/${SAMP}.scf.fasta "$AGAPE_DIR" 
 
 Reference
 =========

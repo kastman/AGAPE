@@ -67,8 +67,8 @@ chmod 755 $temp_dir/$seq_name-contigs.fa
 ln -s $temp_dir/$seq_name-contigs.fa $temp_dir/$seq_name.ctg.fasta
 
 $SGA_src/sga-align --name $seq_name.frag $temp_dir/$seq_name.ctg.fasta $lname1 $lname2
-sga-bam2de.pl -n $MIN_PAIRS -m $MIN_CONTIG_LENGTH --mina $MINA_NUM --prefix $seq_name.frag $temp_dir/$seq_name.frag.bam
-sga-astat.py -m $MIN_CONTIG_LENGTH $temp_dir/$seq_name.frag.refsort.bam > $temp_dir/$seq_name.ctg.astat
+$SGA_src/sga-bam2de.pl -n $MIN_PAIRS -m $MIN_CONTIG_LENGTH --mina $MINA_NUM --prefix $seq_name.frag $temp_dir/$seq_name.frag.bam
+$SGA_src/sga-astat.py -m $MIN_CONTIG_LENGTH $temp_dir/$seq_name.frag.refsort.bam > $temp_dir/$seq_name.ctg.astat
 sga scaffold -m $MIN_CONTIG_LENGTH --pe $temp_dir/$seq_name.frag.de -a $temp_dir/$seq_name.ctg.astat -o $temp_dir/$seq_name.scaf \
 	$temp_dir/$seq_name.ctg.fasta
 sga scaffold2fasta -m $MIN_CONTIG_LENGTH -f $temp_dir/$seq_name.ctg.fasta -o $temp_dir/$seq_name.scf.fasta $temp_dir/$seq_name.scaf --write-unplaced --use-overlap
