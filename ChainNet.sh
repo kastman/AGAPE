@@ -36,7 +36,9 @@ do
 	axtChain $chainParams $target/lav/$chr_name.$seq_name.axt -faT $chr_seq -faQ $seq_file $target/chain/$chr_name.chain
 #axtChainNet/faSize $ref1 -detailed > $main_dir/$chr_name.size
 	chainNet $target/chain/$chr_name.chain -minSpace=1 $ref_dir/$chr_name.size $main_dir/$seq_name.size $target/net/$chr_name.temp.net $target/net/query.temp.net
+	set +e  # Allow failing stat lookup on OSX: Couldn't open /proc/self/stat , No such file or directory
 	netSyntenic $target/net/$chr_name.temp.net $target/net/$chr_name.net
+	set -e
 done
 
 rm -rf $target/net/*.temp.net
