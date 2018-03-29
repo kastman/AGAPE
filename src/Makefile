@@ -7,7 +7,7 @@
 # locations, and then run "make install".
 #
 INSTALL = install
-TARGETS = build_homologs build_non_ref build_utils
+TARGETS = build_homologs build_non_ref build_infer_annot build_utils
 
 build : clean bindir $(TARGETS)
 	@echo '=== Build complete ==='
@@ -27,6 +27,10 @@ build_utils :
 build_non_ref :
 	@echo ---$@---
 	cd non_ref; make
+
+build_infer_annot :
+	@echo ---$@---
+	cd CHAP_infer_annot; make
 
 clean :
 	@echo ---$@---
