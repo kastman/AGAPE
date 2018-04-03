@@ -34,9 +34,11 @@ void quick_sort_dec_genes(struct g_list *a, int lo, int hi, int mode)
 			strcpy(h.gname, a[i].gname);
 			strcpy(h.sname, a[i].sname);
 			a[i] = assign_genes(a[j]);
-			// // Absolute Total Hack - Don't copy gene names (tests show this doesn't work?)
-			// strcpy(a[i].gname, a[j].gname);
-			// strcpy(a[i].sname, a[j].sname);
+			// Don't copy gene names if they're already identical (i == j)
+			if (i != j) {
+				strcpy(a[i].gname, a[j].gname);
+				strcpy(a[i].sname, a[j].sname);
+			}
 			a[j] = assign_genes(h);
 			strcpy(a[j].gname, h.gname);
 			strcpy(a[j].sname, h.sname);
@@ -77,9 +79,11 @@ void quick_sort_inc_genes(struct g_list *a, int lo, int hi, int mode)
 			strcpy(h.gname, a[i].gname);
 			strcpy(h.sname, a[i].sname);
 			a[i] = assign_genes(a[j]);
-			// // Absolute Total Hack - Don't copy gene names (tests show this doesn't work?)
-			// strcpy(a[i].gname, a[j].gname);
-			// strcpy(a[i].sname, a[j].sname);
+			// Don't copy gene names if they're already identical (i == j)
+			if (i != j) {
+				strcpy(a[i].gname, a[j].gname);
+				strcpy(a[i].sname, a[j].sname);
+			}
 			a[j] = assign_genes(h);
 			strcpy(a[j].gname, h.gname);
 			strcpy(a[j].sname, h.sname);
