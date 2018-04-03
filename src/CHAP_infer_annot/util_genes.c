@@ -12,19 +12,19 @@ void quick_sort_dec_genes(struct g_list *a, int lo, int hi, int mode)
 	int i=lo, j=hi;
 	struct g_list h;
 	float x;
-	
+
 	if( mode == POS_BASE ) x = ((float) (a[(lo+hi)/2].txStart));
 	else if( mode == LEN_BASE ) x = abs(a[(lo+hi)/2].txEnd - a[(lo+hi)/2].txStart);
 
 //  partition
 	do
-	{    
+	{
 		if( mode == POS_BASE ) {
-			while (((float)(a[i].txStart))>x) i++; 
+			while (((float)(a[i].txStart))>x) i++;
 			while (((float)(a[j].txStart))<x) j--;
 		}
 		else if( mode == LEN_BASE ) {
-			while (abs(a[i].txEnd-a[i].txStart)>x) i++; 
+			while (abs(a[i].txEnd-a[i].txStart)>x) i++;
 			while (abs(a[j].txEnd-a[j].txStart)<x) j--;
 		}
 
@@ -42,7 +42,7 @@ void quick_sort_dec_genes(struct g_list *a, int lo, int hi, int mode)
 			a[j] = assign_genes(h);
 			strcpy(a[j].gname, h.gname);
 			strcpy(a[j].sname, h.sname);
-			i++; 
+			i++;
 			j--;
 		}
 	} while (i <= j);
@@ -57,19 +57,19 @@ void quick_sort_inc_genes(struct g_list *a, int lo, int hi, int mode)
 	int i=lo, j=hi;
 	struct g_list h;
 	float x;
-	
+
 	if( mode == POS_BASE ) x = ((float) (a[(lo+hi)/2].txStart));
 	else if( mode == LEN_BASE ) x = abs(a[(lo+hi)/2].txEnd - a[(lo+hi)/2].txStart);
 
 //  partition
 	do
-	{    
+	{
 		if( mode == POS_BASE ) {
-			while (((float)(a[i].txStart))<x) i++; 
+			while (((float)(a[i].txStart))<x) i++;
 			while (((float)(a[j].txStart))>x) j--;
 		}
 		else if( mode == LEN_BASE ) {
-			while (abs(a[i].txEnd-a[i].txStart)<x) i++; 
+			while (abs(a[i].txEnd-a[i].txStart)<x) i++;
 			while (abs(a[j].txEnd-a[j].txStart)>x) j--;
 		}
 
@@ -87,7 +87,7 @@ void quick_sort_inc_genes(struct g_list *a, int lo, int hi, int mode)
 			a[j] = assign_genes(h);
 			strcpy(a[j].gname, h.gname);
 			strcpy(a[j].sname, h.sname);
-			i++; 
+			i++;
 			j--;
 		}
 	} while (i <= j);
@@ -105,9 +105,9 @@ int quick_search_close_genes(struct g_list *sorted, int i, int j, int query)
 	val = sorted[mid].txStart;
 
 	if(val > query) {
-		if( j <= (mid+1) ) return (mid+1);	
+		if( j <= (mid+1) ) return (mid+1);
 		else res = quick_search_close_genes(sorted, mid+1, j, query);
-	} 
+	}
 	else if(val < query) {
 		if( i >= (mid-1) ) return i;
 		else res = quick_search_close_genes(sorted, i, mid-1, query);
